@@ -1,0 +1,25 @@
+name: Test Keccak Hash
+
+on:
+  push:
+    branches:
+      - feat/keccak
+  pull_request:
+    branches:
+      - feat/keccak
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          profile: minimal
+          override: true
+          components: rustfmt, clippy
+      - uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --release
